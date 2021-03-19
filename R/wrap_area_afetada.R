@@ -4,7 +4,9 @@
 #' @param im_sadia Uma paleta de cores das areas sadias
 #' @param im_sintoma Uma paleta de cores das areas com sintomas
 #' @param im_fundo Uma paleta de cores das areas com sintomas
-#' @param ... argumentos a serem passados para a funcao [area_afetada()].
+#' @param dir_original Diretorio que contem as imagens originais
+#' @param dir_processada Diretorio que contem as imagens processadas
+#' @param ... Outros argumentos a serem passados para a funcao [area_afetada()].
 #' @md
 #' @return Um data frame
 #' @export
@@ -13,6 +15,8 @@ wrap_area_afetada <- function(pattern_files,
                               im_sadia,
                               im_sintoma,
                               im_fundo,
+                              dir_original = NULL,
+                              dir_processada = NULL,
                               ...){
   image_extension <- function(file){
     ex <- strsplit(basename(file), split="\\.")[[1]]
@@ -46,7 +50,10 @@ wrap_area_afetada <- function(pattern_files,
     results[[i]] <-   area_afetada(im_original  = names_plant[i],
                                    im_sadia  = im_sadia,
                                    im_sintoma  = im_sintoma,
-                                   im_fundo  = im_fundo, ...)
+                                   im_fundo  = im_fundo,
+                                   dir_processada = dir_processada,
+                                   dir_original = dir_original,
+                                   ...)
   }
   rbind_fill_id(results) %>%
     add_cols(amostra = names_plant, .before = 1) %>%

@@ -38,14 +38,7 @@ area_afetada <- function(im_original,
   } else{
     diretorio_processada <- paste("./", dir_processada, sep = "")
   }
-
-  ######## PACOTES  ##########
-
-
   ################ funções auxiliares #################################
-  show_image <- function(x){
-    grid.raster(x)
-  }
   correct_image =function(img2,perc,imagem=T,individual=F){
     if(imagem==T){t=img2@.Data[,,1]}
     if(imagem==F){t=img2}
@@ -97,7 +90,7 @@ area_afetada <- function(im_original,
 
     }
   }
-  image_to_mat <- function(image, randomize = randomize, nrows = nrows){
+  image_to_mat <- function(image, randomize, nrows){
     d <- match.call()
     ncols <- ncol(image[,,1])
     im <- cbind(c(image[,,1]), c(image[,,2]), c(image[,,3]))
@@ -141,10 +134,10 @@ area_afetada <- function(im_original,
   im_sadia <- readImage(paste(diretorio_original, "/", image_name(sadio), ".", image_extension(sadio), sep = ""))
   im_sintoma <- readImage(paste(diretorio_original, "/", image_name(sintoma), ".", image_extension(sintoma), sep = ""))
   im_fundo <- readImage(paste(diretorio_original, "/", image_name(fundo), ".", image_extension(fundo), sep = ""))
-  original <- image_to_mat(im_original)
-  sadio <- image_to_mat(im_sadia)
-  sintoma <- image_to_mat(im_sintoma)
-  fundo <- image_to_mat(im_fundo)
+  original <- image_to_mat(im_original, randomize = randomize, nrows = nrows)
+  sadio <- image_to_mat(im_sadia, randomize = randomize, nrows = nrows)
+  sintoma <- image_to_mat(im_sintoma, randomize = randomize, nrows = nrows)
+  fundo <- image_to_mat(im_fundo, randomize = randomize, nrows = nrows)
   # separar o fundo
   fundo_resto <-
     rbind(sadio$df_man,
