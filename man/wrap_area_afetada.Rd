@@ -4,17 +4,7 @@
 \alias{wrap_area_afetada}
 \title{Uma funcao wrapper para a funcao area_afetada}
 \usage{
-wrap_area_afetada(
-  pattern_files,
-  im_sadia,
-  im_sintoma,
-  im_fundo,
-  cor_fundo = "branco",
-  show_canal = 2,
-  salva_image = FALSE,
-  dir_original = NULL,
-  dir_processada = NULL
-)
+wrap_area_afetada(pattern_files, im_sadia, im_sintoma, im_fundo, ...)
 }
 \arguments{
 \item{pattern_files}{Um padrao de nome de arquivo}
@@ -25,15 +15,9 @@ wrap_area_afetada(
 
 \item{im_fundo}{Uma paleta de cores das areas com sintomas}
 
+\item{...}{argumentos a serem passados para a funcao \code{\link[=area_afetada]{area_afetada()}}.}
+
 \item{cor_fundo}{Cor do fundo apos o processamento da imagem}
-
-\item{show_canal}{Qual canal mostrar (1, 2, ou 3)}
-
-\item{salva_image}{Salvar a imagem apos processamento?}
-
-\item{dir_original}{Diretorio que contem as imagens originais}
-
-\item{dir_processada}{Diretorio que contem as imagens processadas}
 }
 \value{
 Um data frame

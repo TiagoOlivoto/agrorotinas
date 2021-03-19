@@ -11,6 +11,8 @@ area_afetada(
   im_fundo,
   cor_fundo = "branco",
   show_canal = 2,
+  randomize = TRUE,
+  nrows = 20000,
   salva_image = FALSE,
   dir_original = NULL,
   dir_processada = NULL
@@ -29,11 +31,15 @@ area_afetada(
 
 \item{show_canal}{Qual canal mostrar (1, 2, ou 3)}
 
+\item{randomize}{Aleatorizar as linhas para treinar o modelo?}
+
 \item{salva_image}{Salvar a imagem apos processamento?}
 
 \item{dir_original}{Diretorio que contem as imagens originais}
 
 \item{dir_processada}{Diretorio que contem as imagens processadas}
+
+\item{nrow}{O numero de linhas a ser utilziado no treinamento do modelo.}
 }
 \value{
 Um data frame com os resutlados para cada imagem.

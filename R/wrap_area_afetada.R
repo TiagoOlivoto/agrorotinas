@@ -5,11 +5,8 @@
 #' @param im_sintoma Uma paleta de cores das areas com sintomas
 #' @param im_fundo Uma paleta de cores das areas com sintomas
 #' @param cor_fundo Cor do fundo apos o processamento da imagem
-#' @param show_canal Qual canal mostrar (1, 2, ou 3)
-#' @param salva_image Salvar a imagem apos processamento?
-#' @param dir_original Diretorio que contem as imagens originais
-#' @param dir_processada Diretorio que contem as imagens processadas
-#'
+#' @param ... argumentos a serem passados para a funcao [area_afetada()].
+#' @md
 #' @return Um data frame
 #' @export
 #' @importFrom purrr map_chr
@@ -17,11 +14,7 @@ wrap_area_afetada <- function(pattern_files,
                               im_sadia,
                               im_sintoma,
                               im_fundo,
-                              cor_fundo = "branco",
-                              show_canal = 2,
-                              salva_image = FALSE,
-                              dir_original = NULL,
-                              dir_processada = NULL){
+                              ...){
   image_extension <- function(file){
     ex <- strsplit(basename(file), split="\\.")[[1]]
     return(ex[-1])
@@ -54,10 +47,7 @@ wrap_area_afetada <- function(pattern_files,
     results[[i]] <-   area_afetada(im_original  = names_plant[i],
                                    im_sadia  = im_sadia,
                                    im_sintoma  = im_sintoma,
-                                   im_fundo  = im_fundo,
-                                   cor_fundo = cor_fundo,
-                                   salva_image = salva_image,
-                                   show_canal = show_canal)
+                                   im_fundo  = im_fundo, ...)
   }
   rbind_fill_id(results) %>%
     add_cols(amostra = names_plant, .before = 1) %>%

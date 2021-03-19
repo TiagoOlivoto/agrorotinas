@@ -6,6 +6,8 @@
 #' @param im_fundo Uma paleta de cores das areas com sintomas
 #' @param cor_fundo Cor do fundo apos o processamento da imagem
 #' @param show_canal Qual canal mostrar (1, 2, ou 3)
+#' @param randomize Aleatorizar as linhas para treinar o modelo?
+#' @param nrow O numero de linhas a ser utilziado no treinamento do modelo.
 #' @param salva_image Salvar a imagem apos processamento?
 #' @param dir_original Diretorio que contem as imagens originais
 #' @param dir_processada Diretorio que contem as imagens processadas
@@ -21,6 +23,8 @@ area_afetada <- function(im_original,
                          im_fundo,
                          cor_fundo = "branco",
                          show_canal = 2,
+                         randomize = TRUE,
+                         nrows = 20000,
                          salva_image = FALSE,
                          dir_original = NULL,
                          dir_processada = NULL){
@@ -93,7 +97,7 @@ area_afetada <- function(im_original,
 
     }
   }
-  image_to_mat <- function(image, randomize = FALSE, nrows = NULL){
+  image_to_mat <- function(image, randomize = randomize, nrows = nrows){
     d <- match.call()
     ncols <- ncol(image[,,1])
     im <- cbind(c(image[,,1]), c(image[,,2]), c(image[,,3]))
@@ -138,9 +142,9 @@ area_afetada <- function(im_original,
   im_sintoma <- readImage(paste(diretorio_original, "/", image_name(sintoma), ".", image_extension(sintoma), sep = ""))
   im_fundo <- readImage(paste(diretorio_original, "/", image_name(fundo), ".", image_extension(fundo), sep = ""))
   original <- image_to_mat(im_original)
-  sadio <- image_to_mat(im_sadia, randomize = TRUE, nrows = 20000)
-  sintoma <- image_to_mat(im_sintoma,  randomize = TRUE, nrows = 20000)
-  fundo <- image_to_mat(im_fundo, randomize = TRUE, nrows = 20000)
+  sadio <- image_to_mat(im_sadia)
+  sintoma <- image_to_mat(im_sintoma)
+  fundo <- image_to_mat(im_fundo)
   # separar o fundo
   fundo_resto <-
     rbind(sadio$df_man,
