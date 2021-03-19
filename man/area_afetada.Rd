@@ -33,13 +33,13 @@ area_afetada(
 
 \item{randomize}{Aleatorizar as linhas para treinar o modelo?}
 
+\item{nrows}{O numero de linhas a ser utilziado no treinamento do modelo.}
+
 \item{salva_image}{Salvar a imagem apos processamento?}
 
 \item{dir_original}{Diretorio que contem as imagens originais}
 
 \item{dir_processada}{Diretorio que contem as imagens processadas}
-
-\item{nrow}{O numero de linhas a ser utilziado no treinamento do modelo.}
 }
 \value{
 Um data frame com os resutlados para cada imagem.

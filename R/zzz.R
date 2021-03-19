@@ -10,5 +10,5 @@
 
 if (getRversion() >= "2.15.1") {
   utils::globalVariables(
-    c("Contorno", "display", "CODE"))
+    c("Contorno", "display", "CODE", "dir_original" ,"dir_processada"))
   }

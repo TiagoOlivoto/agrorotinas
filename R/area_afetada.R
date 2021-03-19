@@ -7,7 +7,7 @@
 #' @param cor_fundo Cor do fundo apos o processamento da imagem
 #' @param show_canal Qual canal mostrar (1, 2, ou 3)
 #' @param randomize Aleatorizar as linhas para treinar o modelo?
-#' @param nrow O numero de linhas a ser utilziado no treinamento do modelo.
+#' @param nrows O numero de linhas a ser utilziado no treinamento do modelo.
 #' @param salva_image Salvar a imagem apos processamento?
 #' @param dir_original Diretorio que contem as imagens originais
 #' @param dir_processada Diretorio que contem as imagens processadas

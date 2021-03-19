@@ -4,7 +4,6 @@
 #' @param im_sadia Uma paleta de cores das areas sadias
 #' @param im_sintoma Uma paleta de cores das areas com sintomas
 #' @param im_fundo Uma paleta de cores das areas com sintomas
-#' @param cor_fundo Cor do fundo apos o processamento da imagem
 #' @param ... argumentos a serem passados para a funcao [area_afetada()].
 #' @md
 #' @return Um data frame

@@ -16,8 +16,6 @@ wrap_area_afetada(pattern_files, im_sadia, im_sintoma, im_fundo, ...)
 \item{im_fundo}{Uma paleta de cores das areas com sintomas}
 
 \item{...}{argumentos a serem passados para a funcao \code{\link[=area_afetada]{area_afetada()}}.}
-
-\item{cor_fundo}{Cor do fundo apos o processamento da imagem}
 }
 \value{
 Um data frame
