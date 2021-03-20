@@ -15,6 +15,8 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Imports: 
     grid,
+    jpeg,
     metan,
-    OpenImageR,
-    purrr
+    png,
+    purrr,
+    tiff

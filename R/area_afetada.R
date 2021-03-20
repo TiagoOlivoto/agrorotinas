@@ -14,7 +14,6 @@
 #' @return Um data frame com os resutlados para cada imagem.
 #' @export
 #' @importFrom stats binomial glm predict
-#' @import OpenImageR
 #' @import metan
 #' @importFrom grid grid.raster
 area_afetada <- function(im_original,
@@ -90,34 +89,7 @@ area_afetada <- function(im_original,
 
     }
   }
-  image_to_mat <- function(image, randomize, nrows){
-    d <- match.call()
-    ncols <- ncol(image[,,1])
-    im <- cbind(c(image[,,1]), c(image[,,2]), c(image[,,3]))
-    df_in <- data.frame(im) %>% add_cols(code = paste(d[["image"]]), .before = 1)
-    df_man <- df_in
-    if(randomize == TRUE){
-      df_man <- df_man[sample(1:nrow(df_man)),]
-    }
-    if(!missing(nrows)){
-      df_man <- df_man[1:nrows, ]
-    }
-    colnames(df_man) <- colnames(df_in) <-  c("CODE", "R", "G", "B")
-    rbg <- list(R = matrix(im[, 1], ncol = ncols),
-                G = matrix(im[, 2], ncol = ncols),
-                B = matrix(im[, 3], ncol = ncols),
-                df_man = data.frame(df_man),
-                df_in = df_in)
-    return(rbg)
-  }
-  image_extension <- function(file){
-    ex <- strsplit(basename(file), split="\\.")[[1]]
-    return(ex[-1])
-  }
-  image_name <- function(file){
-    ex <- strsplit(basename(file), split="\\.")[[1]]
-    return(ex[1])
-  }
+
   #####################################################################
   all_files <- sapply(list.files(diretorio_original), image_name)
   names <- c(im_original, im_sadia, im_sintoma, im_fundo)
@@ -130,10 +102,10 @@ area_afetada <- function(im_original,
   sadio <- list.files(diretorio_original, pattern = im_sadia)
   sintoma <- list.files(diretorio_original, pattern = im_sintoma)
   fundo <- list.files(diretorio_original, pattern = im_fundo)
-  im_original <- readImage(paste(diretorio_original, "/", name, ".", extens, sep = ""))
-  im_sadia <- readImage(paste(diretorio_original, "/", image_name(sadio), ".", image_extension(sadio), sep = ""))
-  im_sintoma <- readImage(paste(diretorio_original, "/", image_name(sintoma), ".", image_extension(sintoma), sep = ""))
-  im_fundo <- readImage(paste(diretorio_original, "/", image_name(fundo), ".", image_extension(fundo), sep = ""))
+  im_original <- importar_imagem(paste(diretorio_original, "/", name, ".", extens, sep = ""))
+  im_sadia <- importar_imagem(paste(diretorio_original, "/", image_name(sadio), ".", image_extension(sadio), sep = ""))
+  im_sintoma <- importar_imagem(paste(diretorio_original, "/", image_name(sintoma), ".", image_extension(sintoma), sep = ""))
+  im_fundo <- importar_imagem(paste(diretorio_original, "/", image_name(fundo), ".", image_extension(fundo), sep = ""))
   original <- image_to_mat(im_original, randomize = randomize, nrows = nrows)
   sadio <- image_to_mat(im_sadia, randomize = randomize, nrows = nrows)
   sintoma <- image_to_mat(im_sintoma, randomize = randomize, nrows = nrows)
@@ -167,12 +139,13 @@ area_afetada <- function(im_original,
   im2[,,1][!ID] <- cor_fundo
   im2[,,2][!ID] <- cor_fundo
   im2[,,3][!ID] <- cor_fundo
-
   if(dir.exists(diretorio_processada) == FALSE){
     dir.create(diretorio_processada)
   }
+  # return(im2)i
+  mostrar_imagem(im2)
   if(salva_image == TRUE){
-    writeImage(im2, file_name = paste(diretorio_processada, "/proc_", name, ".", extens, collapse = "", sep = ""))
+    salvar_imagem(im2, nome = paste(diretorio_processada, "/proc_", name, ".", extens, collapse = "", sep = ""))
   }
   sadio <- mean(pred2)
   afetado <- 1 - sadio
